@@ -5,4 +5,166 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    tools:context=".MainActivity" />
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/box1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/background_box"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/redLight"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_red"
+            android:orientation="vertical">
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/background_box"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/box1">
+
+        <LinearLayout
+            android:id="@+id/yellow_light"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_black"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/countdown"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/countdown_text"
+                android:textColor="@color/color_countdown"
+                android:textSize="45sp"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box3"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/background_box"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/box2">
+
+        <LinearLayout
+            android:id="@+id/greenLight"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_green"
+            android:orientation="vertical">
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/start_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/button_start"
+        android:text="@string/start"
+        android:textAllCaps="true"
+        android:textColor="@color/text_start"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--   <RelativeLayout
+           android:id="@+id/box"
+           android:layout_width="120dp"
+           android:layout_height="320dp"
+           android:layout_marginTop="200dp"
+           android:background="@drawable/background_box"
+
+           android:visibility="visible"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintHorizontal_bias="0.5"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent">
+
+           <LinearLayout
+               android:id="@+id/redLight"
+               android:layout_width="80dp"
+               android:layout_height="80dp"
+               android:layout_alignParentStart="false"
+               android:layout_alignParentTop="true"
+
+               android:layout_alignParentEnd="false"
+               android:layout_centerHorizontal="true"
+               android:layout_marginTop="20dp"
+               android:background="@drawable/background_red"
+               android:orientation="vertical">
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:id="@+id/yellow_light"
+               android:layout_width="80dp"
+               android:layout_height="80dp"
+               android:layout_below="@+id/redLight"
+               android:layout_alignParentStart="false"
+
+               android:layout_alignParentEnd="false"
+               android:layout_centerHorizontal="true"
+               android:layout_marginTop="20dp"
+               android:background="@drawable/background_black"
+               android:orientation="vertical">
+
+               <TextView
+                   android:id="@+id/textView"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:gravity="center"
+                   android:minHeight="50dp"
+
+                   android:text="@string/countdown_text"
+                   android:textColor="@color/color_countdown"
+                   android:textSize="45sp" />
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:id="@+id/greenLight"
+               android:layout_width="80dp"
+               android:layout_height="80dp"
+               android:layout_below="@+id/yellow_light"
+               android:layout_alignParentStart="false"
+
+               android:layout_alignParentEnd="false"
+               android:layout_centerHorizontal="true"
+               android:layout_marginTop="20dp"
+               android:background="@drawable/background_green"
+               android:orientation="vertical"></LinearLayout>
+       </RelativeLayout>  -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

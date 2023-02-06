@@ -9,4 +9,15 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="main_background">#00181E</color>
+    <color name="color_box">#1F1F1F</color>
+    <color name="color_countdown">#ffffff</color>
+    <color name="light_black">#121212</color>
+    <color name="light_red">#ec0606</color>
+    <color name="light_yellow">#f8b707</color>
+    <color name="light_green">#4CAF37</color>
+    <color name="button_start">#4CAF50</color>
+    <color name="button_stop">#A30F0F</color>
+    <color name="text_start">#000000</color>
+    <color name="text_stop">#FFFFFF</color>
+
 </resources>
