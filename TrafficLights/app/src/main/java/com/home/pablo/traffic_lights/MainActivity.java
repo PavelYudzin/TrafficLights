@@ -1,34 +1,34 @@
 package com.home.pablo.traffic_lights;
 
+import static com.home.pablo.traffic_lights.R.id.control_btn;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
 public class MainActivity extends AppCompatActivity {
 
-    private TextView countdown;
-    private AppCompatButton startBtn;
+    private TextView countdownText;
+    private AppCompatButton controlBtn;
     private int redDuration;
     private int greenDuration;
     private int duration = 90;
-    private boolean isTimerRunning = false;
+    private boolean isTrafficLightsWork = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        countdown = findViewById(R.id.countdown);
-        startBtn = findViewById(R.id.start_btn);
+        countdownText = findViewById(R.id.countdown_text);
+        controlBtn = findViewById(control_btn);
 
-    /*    startBtn.setOnClickListener(new View.OnClickListener() {
+    /*    controlBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!isTimerRunning) {
@@ -61,5 +61,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void onClickControlBtn(View view) {
+        if (!isTrafficLightsWork) {
+            controlBtn.setBackgroundResource(R.drawable.button_stop);
+            controlBtn.setText(getResources().getText(R.string.btn_stop_text));
+            controlBtn.setTextColor(ResourcesCompat.getColor(getResources(), R.color.text_stop, null));
+            isTrafficLightsWork = true;
 
+            Toast.makeText(this, "Traffic Lights is ON", Toast.LENGTH_SHORT).show();
+        } else {
+            controlBtn.setBackgroundResource(R.drawable.button_start);
+            controlBtn.setText(getResources().getText(R.string.btn_start_text));
+            controlBtn.setTextColor(ResourcesCompat.getColor(getResources(), R.color.text_start, null));
+            isTrafficLightsWork = false;
+
+            Toast.makeText(this, "Traffic Lights is OFF", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
