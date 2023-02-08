@@ -11,7 +11,7 @@
         android:id="@+id/box1"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="150dp"
         android:background="@drawable/background_box"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,6 +27,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/background_black"
             android:orientation="vertical">
+
         </LinearLayout>
     </LinearLayout>
 
@@ -82,6 +83,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/background_black"
             android:orientation="vertical">
+
         </LinearLayout>
     </LinearLayout>
 
@@ -100,72 +102,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/box3" />
 
-    <!--   <RelativeLayout
-           android:id="@+id/box"
-           android:layout_width="120dp"
-           android:layout_height="320dp"
-           android:layout_marginTop="200dp"
-           android:background="@drawable/background_box"
-
-           android:visibility="visible"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintHorizontal_bias="0.5"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent">
-
-           <LinearLayout
-               android:id="@+id/redLight"
-               android:layout_width="80dp"
-               android:layout_height="80dp"
-               android:layout_alignParentStart="false"
-               android:layout_alignParentTop="true"
-
-               android:layout_alignParentEnd="false"
-               android:layout_centerHorizontal="true"
-               android:layout_marginTop="20dp"
-               android:background="@drawable/background_red"
-               android:orientation="vertical">
-
-           </LinearLayout>
-
-           <LinearLayout
-               android:id="@+id/yellow_light"
-               android:layout_width="80dp"
-               android:layout_height="80dp"
-               android:layout_below="@+id/redLight"
-               android:layout_alignParentStart="false"
-
-               android:layout_alignParentEnd="false"
-               android:layout_centerHorizontal="true"
-               android:layout_marginTop="20dp"
-               android:background="@drawable/background_black"
-               android:orientation="vertical">
-
-               <TextView
-                   android:id="@+id/textView"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:gravity="center"
-                   android:minHeight="50dp"
-
-                   android:text="@string/countdown_text"
-                   android:textColor="@color/color_countdown"
-                   android:textSize="45sp" />
-
-           </LinearLayout>
-
-           <LinearLayout
-               android:id="@+id/greenLight"
-               android:layout_width="80dp"
-               android:layout_height="80dp"
-               android:layout_below="@+id/yellow_light"
-               android:layout_alignParentStart="false"
-
-               android:layout_alignParentEnd="false"
-               android:layout_centerHorizontal="true"
-               android:layout_marginTop="20dp"
-               android:background="@drawable/background_green"
-               android:orientation="vertical"></LinearLayout>
-       </RelativeLayout>  -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:clickable="true"
+        android:contentDescription="@string/settings_icon_description"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_settings" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

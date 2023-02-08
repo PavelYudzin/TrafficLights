@@ -3,4 +3,5 @@
     <string name="countdown_text">0</string>
     <string name="btn_start_text">Start</string>
     <string name="btn_stop_text">Stop</string>
+    <string name="settings_icon_description">Settings icon</string>
 </resources>
