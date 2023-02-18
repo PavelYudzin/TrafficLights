@@ -2,15 +2,19 @@ package com.home.pablo.traffic_lights;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     private LinearLayout redLight;
     private LinearLayout yellowLight;
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private int greenDuration;
     private long duration;
     private int nextLight;
+    int previousLight;
     private boolean isTrafficLightsWork;
     private boolean isAppWorks;
 
@@ -112,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         if (!isTrafficLightsWork) {
             isTrafficLightsWork = true;
 
-            controlBtn.setBackgroundResource(R.drawable.button_stop);
+            controlBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.button_stop));
             controlBtn.setText(getResources().getText(R.string.btn_stop_text));
             controlBtn.setTextColor(ResourcesCompat.getColor(getResources(), R.color.text_stop, null));
             countdownText.setVisibility(View.VISIBLE);
@@ -122,10 +127,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Traffic Lights is ON", Toast.LENGTH_SHORT).show();
         } else {
             isTrafficLightsWork = false;
-            controlBtn.setBackgroundResource(R.drawable.button_start);
+            controlBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.button_start));
             controlBtn.setText(getResources().getText(R.string.btn_start_text));
             controlBtn.setTextColor(ResourcesCompat.getColor(getResources(), R.color.text_start, null));
             countdownText.setVisibility(View.INVISIBLE);
+
             stopLights();
 
             Toast.makeText(this, "Traffic Lights is OFF", Toast.LENGTH_SHORT).show();
@@ -133,42 +139,68 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void runTrafficLights() {
+
         new Thread(() -> {
+            previousLight = 1;
             while (isTrafficLightsWork && isAppWorks) {
                 switch (nextLight) {
                     case 1:
                         duration = redDuration;
                         nextLight = 2;
-                        countdownText.setText(Long.toString(duration));
-                        redLight.setBackgroundResource(R.drawable.background_red);
-                        yellowLight.setBackgroundResource(R.drawable.background_black);
-                        greenLight.setBackgroundResource(R.drawable.background_black);
+                        previousLight = 1;
+                        countdownText.setText(String.valueOf(duration));
+                        redLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_red));
+                        yellowLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
+                        greenLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
                         break;
                     case 2:
                         duration = yellowDuration;
-                        nextLight = 3;
+                        nextLight = previousLight == 1 ? 3 : 1;
+                        previousLight = 1;
                         countdownText.setText("");
-                        redLight.setBackgroundResource(R.drawable.background_black);
-                        yellowLight.setBackgroundResource(R.drawable.background_yellow);
-                        greenLight.setBackgroundResource(R.drawable.background_black);
+                        redLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
+                        yellowLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_yellow));
+                        greenLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
                         break;
                     case 3:
                         duration = greenDuration;
-                        nextLight = 1;
-                        countdownText.setText(Long.toString(duration));
-                        redLight.setBackgroundResource(R.drawable.background_black);
-                        yellowLight.setBackgroundResource(R.drawable.background_black);
-                        greenLight.setBackgroundResource(R.drawable.background_green);
+                        nextLight = 2;
+                        previousLight = 3;
+                        countdownText.setText(String.valueOf(duration));
+                        redLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
+                        yellowLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
+                        greenLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_green));
                         break;
                     default:
                         stopLights();
                 }
 
+                Log.d(TAG, "next light " + nextLight);
                 try {
                     Thread.sleep(duration * 1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+
+                if (previousLight == 3) {
+                    greenLight.setBackground((ContextCompat.getDrawable(this, R.drawable.background_black)));
+                    for (int i = 0; i < 3; i++) {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        greenLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_green));
+
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        greenLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
+                    }
+                }
+
             }
         }).start();
 
@@ -177,9 +209,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void stopLights() {
         nextLight = 1;
-        redLight.setBackgroundResource(R.drawable.background_black);
-        yellowLight.setBackgroundResource(R.drawable.background_black);
-        greenLight.setBackgroundResource(R.drawable.background_black);
+        redLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
+        yellowLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
+        greenLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_black));
     }
 
     /*
