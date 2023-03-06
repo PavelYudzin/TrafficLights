@@ -4,13 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private int duration;
     private int nextLight;
     int previousLight;
-    private boolean isTrafficLightWork;
+    private volatile boolean isTrafficLightWork;
     private boolean isAppWork;
 
 
@@ -45,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         redLight = findViewById(R.id.red_light);
         yellowLight = findViewById(R.id.yellow_light);
         greenLight = findViewById(R.id.green_light);
-
         countdownText = findViewById(R.id.countdown_text);
         controlBtn = findViewById(R.id.control_btn);
 
@@ -58,37 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         isTrafficLightWork = false;
         isAppWork = true;
-
-    /*    controlBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isTimerRunning) {
-                    isTimerRunning = true;
-                    countdown.setVisibility(View.VISIBLE);
-                    new CountDownTimer(duration * 1000, 1000) {
-
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    String time = String.format(Locale.getDefault(), "%d", TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished));
-                                    countdown.setText(time);
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            duration = 90;
-                            isTimerRunning = false;
-                        }
-                    }.start();
-                } else {
-                    Toast.makeText(MainActivity.this, "Timer is already running", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }); */
     }
 
     @Override
@@ -124,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
             runTrafficLights();
 
-            Toast.makeText(this, "Traffic Lights is ON", Toast.LENGTH_SHORT).show();
         } else {
             isTrafficLightWork = false;
             controlBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.button_start));
@@ -133,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
             countdownText.setVisibility(View.INVISIBLE);
 
             stopLights();
-
-            Toast.makeText(this, "Traffic Lights is OFF", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -172,16 +134,25 @@ public class MainActivity extends AppCompatActivity {
                         stopLights();
                 }
 
-                Log.d(TAG, "next light " + nextLight);
-
                 for (int i = duration; i > 0; i--) {
+                    if (!isTrafficLightWork) {
+                        return;
+                    }
                     if (nextLight == 2 && i < 100) {
                         countdownText.setText(String.valueOf(i));
                     } else {
                         countdownText.setText("");
                     }
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (!isTrafficLightWork) {
+                        return;
+                    }
+                    try {
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -192,13 +163,18 @@ public class MainActivity extends AppCompatActivity {
                 if (previousLight == 3) {
                     greenLight.setBackground((ContextCompat.getDrawable(this, R.drawable.background_black)));
                     for (int i = 0; i < 3; i++) {
+                        if (!isTrafficLightWork) {
+                            return;
+                        }
                         try {
                             Thread.sleep(600);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
                         greenLight.setBackground(ContextCompat.getDrawable(this, R.drawable.background_green));
-
+                        if (!isTrafficLightWork) {
+                            return;
+                        }
                         try {
                             Thread.sleep(800);
                         } catch (InterruptedException e) {

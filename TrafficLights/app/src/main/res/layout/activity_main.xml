@@ -7,19 +7,6 @@
     android:background="@color/main_background"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:clickable="true"
-        android:contentDescription="@string/settings_icon_description"
-        android:focusable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_settings" />
-
     <LinearLayout
         android:id="@+id/box1"
         android:layout_width="120dp"
